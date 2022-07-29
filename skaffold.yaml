@@ -14,10 +14,11 @@ deploy:
   helm:
     releases:
     - name: m-svc-1
-      remoteChart: sonal-github-helm-repo/micro-svc-helm-chart
+      #remoteChart: sonal-github-helm-repo/micro-svc-helm-chart
+      chartPath: './micro-svc-helm-chart/'
       valuesFiles:
       - '../skaffold-k8s-state/helm-values/m-svc-1/local/values.yaml'
       artifactOverrides:
-        image: docker.io/sinhasonalkumar/m-svc-1
+       container.image: docker.io/sinhasonalkumar/m-svc-1
       imageStrategy:
-        helm: {}  
+        fqn: {}  
