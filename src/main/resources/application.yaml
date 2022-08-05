@@ -1,0 +1,26 @@
+spring: 
+  application: 
+    name: m-svc-1
+  webflux:
+    base-path: /m-svc-1
+    
+server: 
+  port: 8080
+
+management: 
+  endpoints: 
+    web: 
+      exposure: 
+        include: "*"
+  info:
+    git: 
+      mode: full
+
+com:
+  sonal:
+    skaffold: 
+      demo: 
+        msvc1:
+          greetings:
+            message: "Hello"
+              

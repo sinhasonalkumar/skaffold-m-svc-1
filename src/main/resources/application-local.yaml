@@ -1,0 +1,7 @@
+com:  
+  sonal:
+    skaffold: 
+      demo: 
+        msvc1:
+          greetings:
+            message: "Local Hello"
