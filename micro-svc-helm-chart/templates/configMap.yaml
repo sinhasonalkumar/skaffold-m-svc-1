@@ -3,40 +3,11 @@ kind: ConfigMap
 metadata:
   name:  m-svc-1-cm
 data:
-  # spring application configs
-  application.yaml: |
-    spring: 
-      application: 
-        name: m-svc-1
-      webflux:
-        base-path: /m-svc-1
-        
-    server: 
-      port: 8080
-
-    management: 
-      endpoints: 
-        web: 
-          exposure: 
-            include: "*"
-      info:
-        git: 
-          mode: full
-
-    com:
-      sonal:
-        skaffold: 
-          demo: 
-            msvc1:
-              greetings:
-                message: "Hello"
-              
-  
-  application-local.yaml: |
-    com:  
-      sonal:
-        skaffold: 
-          demo: 
-            msvc1:
-              greetings:
-                message: "Local Hello"
+  {{- $root := . }}
+  {{- range .Values.config.files }}
+  {{- $curFile := . }}
+  {{ $curFile }}: |
+  {{- $baseDir := "config/" -}}
+  {{- $path :=  print $baseDir $curFile -}}
+  {{ $root.Files.Get $path | nindent 4 }}
+  {{- end }}

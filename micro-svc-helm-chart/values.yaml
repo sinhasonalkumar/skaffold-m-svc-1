@@ -8,4 +8,10 @@ service:
   type: ClusterIP
   port: 80
   targetPort: 80
+
+
+config: 
+  files:
+   - application.yaml
+   - application-local.yaml  
  

@@ -4,7 +4,7 @@ metadata:
   name: m-svc-1
 build:
   artifacts:
-  - image: docker.io/sinhasonalkumar/m-svc-1
+  - image: m-svc-1-image #docker.io/sinhasonalkumar/m-svc-1
     docker:
       dockerfile: Dockerfile
 deploy:
@@ -19,6 +19,6 @@ deploy:
       valuesFiles:
       - '../skaffold-k8s-state/helm-values/m-svc-1/local/values.yaml'
       artifactOverrides:
-       container.image: docker.io/sinhasonalkumar/m-svc-1
+       container.image: m-svc-1-image #docker.io/sinhasonalkumar/m-svc-1
       imageStrategy:
         fqn: {}  
