@@ -33,3 +33,66 @@ spec:
       - name: m-svc-1-image
         image: m-svc-1-image
         imagePullPolicy: IfNotPresent
+        env:
+          - name: "spring.config.location"
+            value: "/config/"
+          - name: "spring.profiles.active"
+            value: "local"  
+        volumeMounts:
+        - name: config-vol
+          mountPath: "/config"
+          readOnly: true    
+      volumes:
+      - name: config-vol
+        configMap:
+          name: m-svc-1-cm
+          items:
+          - key: "application.yaml"
+            path: "application.yaml"
+          - key: "application-local.yaml"
+            path: "application-local.yaml" 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  m-svc-1-cm
+data:
+  # spring application configs
+  application.yaml: |
+    
+    spring: 
+      application: 
+        name: m-svc-1
+      webflux:
+        base-path: /m-svc-1
+    
+    server: 
+      port: 8080
+
+    management: 
+      endpoints: 
+        web: 
+          exposure: 
+            include: "*"
+      info:
+        git: 
+          mode: full
+
+    com:
+      sonal:
+        skaffold: 
+          demo: 
+            msvc1:
+              greetings:
+                message: "Hello"
+  
+  application-local.yaml: |
+
+    com:  
+      sonal:
+        skaffold: 
+          demo: 
+            msvc1:
+              greetings:
+                message: "Local Hello"
+ 
